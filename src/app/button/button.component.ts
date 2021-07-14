@@ -8,7 +8,7 @@ type buttonSize = 'default'|'small'|'large';
   template: `
     <button [class]="buttonClass()" [style.background-color]="backgroundColor" [attr.disabled]="isDisabled ? '': null" [style.font-size]="size">{{text}}</button>
   `,
-  styles: ['button{font-size: large}',
+  styles: ['button{font-size: large; margin: 10px 10px 10px 10px;}',
             '.active{font-style: italic; font-weight: bold;}']
 })
 export class ButtonComponent implements OnInit, OnChanges {
@@ -24,7 +24,7 @@ export class ButtonComponent implements OnInit, OnChanges {
       this.color = "success";
       this.size = "large";
     } else {
-      this.color = "warning";
+      this.color = "accent";
       this.size = "small";
     }
   }

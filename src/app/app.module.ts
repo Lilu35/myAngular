@@ -12,6 +12,9 @@ import {ProductCardModule} from "./product-card/product-card.module";
 import {DropDownListModule} from "./drop-down-list/drop-down-list.module";
 import {IconTooltipModule} from "./icon-tooltip/icon-tooltip.module";
 import {FormsModule} from "@angular/forms";
+import { MenuComponent } from './menu/menu.component';
+import {MenuModule} from "./menu/menu.module";
+import {DropDownMenuModule} from "./drop-down-menu/drop-down-menu.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import {FormsModule} from "@angular/forms";
     ProductCardModule,
     DropDownListModule,
     IconTooltipModule,
+    MenuModule,
+    DropDownMenuModule,
     FormsModule
   ],
   providers: [],
