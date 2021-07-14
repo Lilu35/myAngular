@@ -6,12 +6,11 @@ import {ButtonModule} from "../button/button.module";
 
 
 @NgModule({
-  declarations: [
-    DropDownListComponent
-  ],
+  declarations: [DropDownListComponent],
   imports: [
     CommonModule,
     ButtonModule
-  ]
+  ],
+  exports: [DropDownListComponent]
 })
 export class DropDownListModule { }

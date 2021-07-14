@@ -8,15 +8,14 @@ import {ButtonModule} from "./button/button.module";
 import {IconModule} from "./icon/icon.module";
 import {RatingModule} from "./rating/rating.module";
 import {TooltipModule} from "./tooltip/tooltip.module";
-import { ProductCardComponent } from './product-card/product-card.component';
 import {ProductCardModule} from "./product-card/product-card.module";
 import {DropDownListModule} from "./drop-down-list/drop-down-list.module";
 import {IconTooltipModule} from "./icon-tooltip/icon-tooltip.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +26,8 @@ import {IconTooltipModule} from "./icon-tooltip/icon-tooltip.module";
     TooltipModule,
     ProductCardModule,
     DropDownListModule,
-    IconTooltipModule
+    IconTooltipModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

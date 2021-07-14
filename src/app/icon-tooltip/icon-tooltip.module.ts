@@ -14,6 +14,7 @@ import {TooltipModule} from "../tooltip/tooltip.module";
     CommonModule,
     IconModule,
     TooltipModule
-  ]
+  ],
+  exports: [IconTooltipComponent]
 })
 export class IconTooltipModule { }
