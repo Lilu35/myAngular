@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
               {{option}}
           </li>
       </ul>
-    </div>
+    </div>    
   `,
   styles: [
   ]

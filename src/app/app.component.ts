@@ -6,10 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'myAngular';
-  active = false;
+  title = 'MY SHOP';
 
-  changeActive(): void{
-    this.active = !this.active;
-  }
 }

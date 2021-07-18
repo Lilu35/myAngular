@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "id": 1,"name": "ADDE","model": "Стул кухонный","cost": 749,"available": true,"discount": false
+    },
+    {
+      "id": 2,"name": "STEFAN","model": "Стул кухонный","cost": 2199,"available": false,"discount": true
+    }
+  ]
+}

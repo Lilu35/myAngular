@@ -1,49 +1,36 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 
-type buttonColors = 'default'|'primary'|'accent'|'success'|'warning';
+// type buttonColors = 'default'|'primary'|'accent'|'success'|'warning';
 type buttonSize = 'default'|'small'|'large';
 
 @Component({
   selector: 'app-button',
   template: `
-    <button [class]="buttonClass()" [style.background-color]="backgroundColor" [attr.disabled]="isDisabled ? '': null" [style.font-size]="size">{{text}}</button>
+    <button *ngIf="true" [class]="buttonClass()" [style.background-color]="color" [attr.disabled]="isDisabled ? '': null" [style.font-size]="size" (mouseover)="activeBtn()" (mouseleave)="activeBtn()"><i *ngIf="withIcon" class="{{iconClass}}"></i>{{text}}</button>
   `,
-  styles: ['button{font-size: large; margin: 10px 10px 10px 10px;}',
-            '.active{font-style: italic; font-weight: bold;}']
+  styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit, OnChanges {
   @Input() text: string = 'button';
-  @Input() color: buttonColors = 'default';
+  @Input() color: string = 'default';
   @Input() size: buttonSize = 'default';
   @Input() isActive: boolean = false;
   @Input() isDisabled: boolean = false;
+  @Input() withIcon: boolean = false;
+  @Input() iconClass: string = '';
 
   ngOnChanges(changes:SimpleChanges): void{
-    console.log('ngOnChanges',changes);
-    if (this.isActive){
-      this.color = "success";
-      this.size = "large";
-    } else {
-      this.color = "accent";
-      this.size = "small";
-    }
+
   }
 
   ngOnInit(): void { }
 
-  get backgroundColor(): string {
-    switch (this.color){
-      case "default":return "default";
-      case "primary":return "blue";
-      case "accent":return "yellow";
-      case "success":return "green";
-      case "warning":return "red";
-      default: return "default";
-    }
-  }
-
   buttonClass(): string{
     return this.isActive? 'active': '';
+  }
+
+  activeBtn(){
+    this.isActive = !this.isActive;
   }
 
 }

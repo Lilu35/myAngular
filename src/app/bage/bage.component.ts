@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-bage',
   template: `
-    <p>
-      bage works!
-    </p>
+      <span *ngIf="num > 0">{{num}}</span>
   `,
-  styles: [
-  ]
+  styles: ['span{position: absolute;left: 102px; background: darkseagreen;border-radius: 10px; text-align: center; width: 20px;}']
 })
 export class BageComponent implements OnInit {
+  @Input() num: number = 0;
 
   constructor() { }
 

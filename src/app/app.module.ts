@@ -15,6 +15,11 @@ import {FormsModule} from "@angular/forms";
 import { MenuComponent } from './menu/menu.component';
 import {MenuModule} from "./menu/menu.module";
 import {DropDownMenuModule} from "./drop-down-menu/drop-down-menu.module";
+import {CatalogModule} from "./catalog/catalog.module";
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
@@ -32,6 +37,7 @@ import {DropDownMenuModule} from "./drop-down-menu/drop-down-menu.module";
     IconTooltipModule,
     MenuModule,
     DropDownMenuModule,
+    CatalogModule,
     FormsModule
   ],
   providers: [],
