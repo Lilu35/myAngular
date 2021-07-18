@@ -6,7 +6,7 @@ import {Toggle} from "../types/card";
   template: `
     <ul>
         <li *ngFor="let t of toggles" [ngStyle]="{backgroundColor:t===this.selected?'lightsalmon':'white'}">
-            <app-button [text]="t.label" (click)="selectedChanged(t)"></app-button>
+            <app-button *ngIf="t.value !== null" [text]="t.label" (click)="selectedChanged(t)"></app-button>
         </li>
     </ul>
   `,

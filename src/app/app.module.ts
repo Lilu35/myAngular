@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -17,9 +17,9 @@ import {MenuModule} from "./menu/menu.module";
 import {DropDownMenuModule} from "./drop-down-menu/drop-down-menu.module";
 import {CatalogModule} from "./catalog/catalog.module";
 import { registerLocaleData } from '@angular/common';
-import localeRu from '@angular/common/locales/ru';
+import localeRU from '@angular/common/locales/ru';
 
-registerLocaleData(localeRu, 'ru');
+registerLocaleData(localeRU);
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ registerLocaleData(localeRu, 'ru');
     CatalogModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{provide:LOCALE_ID,useValue:'ru'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
