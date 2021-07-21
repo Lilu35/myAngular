@@ -1,25 +1,29 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Product, Toggle} from "../types/card";
 import {products} from "../data/product.data";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-catalog',
   template: `
+      <router-outlet></router-outlet>
       <app-cart [cart]="inCart" (cartClear)="clearMyCart($event)" (deleteProduct)="deleteFromCart($event)"></app-cart>  
-      <app-toggle [toggles]="[{value:0,label:'Показать все'},{value:1,label:'В наличии'},{value:2,label:'Со скидкой'}]" (toggleChanged)="filter($event)"></app-toggle>
-      <ul>
-          <li *ngFor="let p of filteredProducts">
-              <app-product-card [product] = "p" (addProduct)="onAddProduct($event)"></app-product-card>              
-          </li>
-      </ul>`,
+      <app-toggle [toggles]="toggles" (toggleChanged)="filter($event)"></app-toggle>
+        <app-product-card
+            *ngFor="let p of filteredProducts"
+            [product] = "p" (addProduct)="onAddProduct($event)">            
+        </app-product-card>              
+          `,
   styles: ['li {list-style-type: none;display: inline-block;margin-right: 50px;}']
 })
 export class CatalogComponent implements OnInit {
   products: Array<Product> = products;
   filteredProducts: Array<Product> = products;
   inCart: Array<any> = [];
+  toggles: Array<any> = [{value:0,label:'Показать все'},{value:1,label:'В наличии'},{value:2,label:'Со скидкой'}];
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
   }
@@ -35,6 +39,7 @@ export class CatalogComponent implements OnInit {
   }
 
   filter(item: Toggle) {
+    if (!item) return;
     if (item.value === 0) {
       this.filteredProducts = this.products
     }

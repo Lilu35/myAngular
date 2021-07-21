@@ -1,5 +1,7 @@
-<h2>{{product.name}}</h2>
-<h3>{{product.model}}</h3>
-<img class="catalog-image" src="{{product.image}}">
-<h3>{{product.cost|currency:'RUB':'symbol-narrow'}}</h3>
-<app-button [text]="'В корзину'" (click)="onClick()" [color]="'primary'" [size]="'large'"></app-button>
+
+  <h2>{{product.name}}</h2>
+  <h3>{{product.model}}</h3>
+  <img class="catalog-image" src="{{product.image}}">
+  <h3>{{product.cost|currency:'RUB':'symbol-narrow'}}</h3>
+  <app-button [text]="'В корзину'" (click)="onClick()" [color]="'primary'" [size]="'large'"></app-button>
+

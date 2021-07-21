@@ -5,7 +5,7 @@ import {Product} from "../types/card";
   selector: 'app-cart',
   template: `
     <div>
-        <app-button [text]="'Корзина'" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button> 
+        <app-button [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button> 
         <app-bage [num]="numberOfProducts"></app-bage>
     </div>
     <div *ngIf="opened && cart.length > 0" [ngStyle]="{border:'3px solid gold',width:'350px',borderRadius:'20px',padding:'10px'}">
