@@ -1,7 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Product, Toggle} from "../types/card";
-import {products} from "../data/product.data";
 import {ActivatedRoute, Router} from "@angular/router";
+import {DataService} from "../services/data.service";
+import {products} from "../data/product.data";
+import {CatalogService} from "../services/catalog.service";
 
 @Component({
   selector: 'app-catalog',
@@ -17,15 +19,18 @@ import {ActivatedRoute, Router} from "@angular/router";
   styles: ['li {list-style-type: none;display: inline-block;margin-right: 50px;}']
 })
 export class CatalogComponent implements OnInit {
-  products: Array<Product> = products;
-  filteredProducts: Array<Product> = products;
+  products: Array<Product> = [];
+  filteredProducts: Array<Product> = [];
   inCart: Array<any> = [];
   toggles: Array<any> = [{value:0,label:'Показать все'},{value:1,label:'В наличии'},{value:2,label:'Со скидкой'}];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private dataServise: DataService, private catalogServise: CatalogService) {
   }
 
   ngOnInit(): void {
+    this.dataServise.setData(products);
+    this.products = this.dataServise.getData();
+    this.filteredProducts = this.dataServise.getData();
   }
 
   public onAddProduct($event: any) {
