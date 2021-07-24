@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../types/card";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,8 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dataServise: DataService) {
+    private dataServise: DataService,
+    public cartService: CartService) {
   }
 
   ngOnInit() {

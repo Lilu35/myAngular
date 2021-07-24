@@ -1,19 +1,20 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Optional, Output} from '@angular/core';
 import {Product, Toggle} from "../types/card";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {products} from "../data/product.data";
 import {CatalogService} from "../services/catalog.service";
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-catalog',
   template: `
       <router-outlet></router-outlet>
-      <app-cart [cart]="inCart" (cartClear)="clearMyCart($event)" (deleteProduct)="deleteFromCart($event)"></app-cart>  
+      <app-cart></app-cart> 
       <app-toggle [toggles]="toggles" (toggleChanged)="filter($event)"></app-toggle>
         <app-product-card
             *ngFor="let p of filteredProducts"
-            [product] = "p" (addProduct)="onAddProduct($event)">            
+            [product] = "p" > 
         </app-product-card>              
           `,
   styles: ['li {list-style-type: none;display: inline-block;margin-right: 50px;}']
@@ -21,49 +22,19 @@ import {CatalogService} from "../services/catalog.service";
 export class CatalogComponent implements OnInit {
   products: Array<Product> = [];
   filteredProducts: Array<Product> = [];
-  inCart: Array<any> = [];
-  toggles: Array<any> = [{value:0,label:'Показать все'},{value:1,label:'В наличии'},{value:2,label:'Со скидкой'}];
+  toggles: Array<any> = [{value:'none',label:'Показать все'},{value:'available',label:'В наличии'},{value:'actionPrice',label:'Со скидкой'}];
 
-  constructor(private router: Router, private route: ActivatedRoute, private dataServise: DataService, private catalogServise: CatalogService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dataService: DataService, private catalogService: CatalogService, public cartService: CartService) {
   }
 
   ngOnInit(): void {
-    this.dataServise.setData(products);
-    this.products = this.dataServise.getData();
-    this.filteredProducts = this.dataServise.getData();
-  }
-
-  public onAddProduct($event: any) {
-    const qty = this.inCart.filter(x => x.product === $event).length ?? 0;
-    if (qty === 0){
-      this.inCart.push({qty: 1, product: $event});
-    } else {
-      const p = this.inCart.find(x => x.product === $event);
-      p.qty = p.qty + 1;
-    }
+    this.dataService.setData(products);
+    this.products = this.dataService.getData();
+    this.filteredProducts = this.dataService.getData();
   }
 
   filter(item: Toggle) {
-    if (!item) return;
-    if (item.value === 0) {
-      this.filteredProducts = this.products
-    }
-    if (item.value === 1) {
-      this.filteredProducts = this.products.filter(x => x.available);
-    }
-    if (item.value === 2) {
-      this.filteredProducts = this.products.filter(x => x.discount);
-    }
-  }
-
-  clearMyCart(clear: boolean){
-    if (clear){
-      this.inCart = [];
-    }
-  }
-
-  deleteFromCart(p: Product){
-    this.inCart = this.inCart.filter(x => x.product.id !== p.id);
+    this.filteredProducts = this.catalogService.getProducts(item);
   }
 
 }

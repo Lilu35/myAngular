@@ -16,7 +16,7 @@ export interface ProductColor {
   image?: string
 }
 export interface Toggle {
-  value: string | number
+  value?: 'actionPrice' | 'available' | 'none'
   label: string
 }
 
