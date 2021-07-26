@@ -26,11 +26,12 @@ export class ToggleComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.sort = this.route.snapshot.queryParams['sort'];
-      this.selectedChanged(this.toggles[+this.sort]);
+      console.log(this.sort);
+      this.selectedChanged(this.toggles.find(t => t.value === this.sort));
     })
   }
 
-  selectedChanged(item: Toggle){
+  selectedChanged(item: Toggle|undefined){
     if (!item) return;
     const sort = item.value;
     this.router.navigate(['.'],{relativeTo: this.route, queryParams: {sort}});

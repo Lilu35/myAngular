@@ -46,4 +46,12 @@ export class CartService {
     this.countProducts = 0;
   }
 
+  get sum(): number{
+    let sum = 0;
+    for (let c of this.inCart){
+      sum += c.product.cost*c.qty;
+    }
+    return sum;
+  }
+
 }

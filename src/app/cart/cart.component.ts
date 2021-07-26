@@ -11,7 +11,7 @@ import {CartService} from "../services/cart.service";
     </div>
     <div *ngIf="this.cartService.cartIsOpened && this.cartService.getCount() > 0" [ngStyle]="{border:'3px solid gold',width:'350px',borderRadius:'20px',padding:'10px'}">
         <app-button [style.float]="'right'" [color]="'primary'" [text]="''" (click)="this.cartService.cartIsOpened=!this.cartService.cartIsOpened" [withIcon]="true" [iconClass]="'fa fa-times-circle'"></app-button>    
-        <span>В корзине {{this.cartService.getCount()}} тов. на сумму {{sum|currency:'RUB':'symbol-narrow'}}</span>
+        <span>В корзине {{this.cartService.getCount()}} тов. на сумму {{this.cartService.sum|currency:'RUB':'symbol-narrow'}}</span>
         <br/>
         <div [style.padding]="'10px 10px 10px 10px'">
             <table>
@@ -40,21 +40,5 @@ export class CartComponent implements OnInit {
       this.cartService.cartIsOpened = !this.cartService.cartIsOpened;
     }
   }
-
-  get sum(): number{
-    let sum = 0;
-    for (let c of this.cartService.getCart()){
-      sum += c.product.cost*c.qty;
-    }
-    return sum;
-  }
-
-  // get numberOfProducts(): number{
-  //   let num = 0;
-  //   for (let c of this.cartService.getCart()){
-  //     num += c.qty;
-  //   }
-  //   return num;
-  // }
 
 }
