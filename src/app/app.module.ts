@@ -24,6 +24,7 @@ import {NotFoundModule} from "./not-found/not-found.module";
 import {FavoritesModule} from "./favorites/favorites.module";
 import {TopBarComponent} from "./top-bar/top-bar.component";
 import {TopBarModule} from "./top-bar/top-bar.module";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 registerLocaleData(localeRU);
 
@@ -51,7 +52,8 @@ registerLocaleData(localeRU);
     TopBarModule,
     FormsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [{provide:LOCALE_ID,useValue:'ru'}],
   bootstrap: [AppComponent]
