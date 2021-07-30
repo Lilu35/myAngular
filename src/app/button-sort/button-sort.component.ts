@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-button-sort',
   template: `
-      <button *ngIf="true" [class]="buttonClass()" (mouseover)="activeBtn()" (mouseleave)="activeBtn()">{{text}}</button>
+      <button [class]="buttonClass()" (mouseover)="activeBtn()" (mouseleave)="activeBtn()">{{text}}</button>
   `,
   styleUrls: ['./button-sort.component.scss']
 })
