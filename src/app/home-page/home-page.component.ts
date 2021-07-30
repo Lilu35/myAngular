@@ -1,27 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpService} from "../services/http.service";
-import {environment} from "../../environments/environment";
-import {Product} from "../types/card";
+import {ProductSB, Toggle} from "../types/card";
 import {ProductsService} from "../services/products.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-home-page',
   template: `
-      <div><h1>{{title}}</h1></div>
-      <pre>{{products$|async|json}}</pre>
+      <div><h1>Список товаров</h1></div>
+      <button>сортировать:</button>
+      <app-button-sort [ngStyle]="{backgroundColor:'title'===this.active?'lightsalmon':'white'}" (click)="applyQuery({orderBy:'title'})" [text]="'по наименованию'"></app-button-sort>
+      <app-button-sort [ngStyle]="{backgroundColor:'company'===this.active?'lightsalmon':'white'}" (click)="applyQuery({orderBy:'company'})" [text]="'по производителю'"></app-button-sort>
+      <app-button-sort [ngStyle]="{backgroundColor:'price'===this.active?'lightsalmon':'white'}" (click)="applyQuery({orderBy:'price'})" [text]="'по цене'"></app-button-sort>
+      <table>
+          <tr>
+              <th>Наименование</th>
+              <th>Производитель</th>
+              <th>Цена</th>
+          </tr>
+          <tr *ngFor="let p of products"><td>{{p.title}}</td><td>{{p.company}}</td><td>{{p.price|currency:'RUB':'symbol-narrow'}}</td></tr>
+      </table>
+      
   `,
-  styles: [
+  styles: [ 'td,th{border-color: darksalmon;border-bottom-style: solid;border-width: thin}','table{text-align: center}','button{border-style: hidden; background-color: white;}'
   ]
 })
 export class HomePageComponent implements OnInit {
-  title = 'MY SHOP';
-  // products: Array<Product> = [];
-  public products$: Observable<Array<Product>> = this.productsService.getProducts$();
+  public products: Array<ProductSB> = [];
+  active: string = '';
+  private queryParams = {};
 
   constructor(private productsService:ProductsService) { }
 
   ngOnInit(): void {
+    this.productsService.getProducts$(this.queryParams).subscribe(result => this.products = result.items)
+  }
+
+  public applyQuery(params:{[key:string]:string}):void{
+    if (params['orderBy']){
+      this.active =params['orderBy'];
+    }
+    this.queryParams = {
+      ... this.queryParams,
+      ... params};
+    this.productsService.getProducts$(this.queryParams).subscribe(result => this.products = result.items);
   }
 
 }

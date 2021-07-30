@@ -10,8 +10,8 @@ export class HttpService {
   constructor(private http:HttpClient) {
   }
 
-  public get<T>(url:string):Observable<T>{
-    return this.http.get<T>(url);
+  public get<T>(url:string,options?:{}):Observable<T>{
+    return this.http.get<T>(url,options);
   }
 
   public post(url:string,data:any){

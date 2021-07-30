@@ -9,16 +9,6 @@ export const products: Array<Product> = [
     cost: 1299,
     discount: false,
     available: true,
-    colors:{
-      one: {
-        color: "white",
-        image: "/assets/id-1-white.jpg"
-      },
-      two: {
-        color: "black",
-        image: "/assets/id-1-black.jpg"
-      }
-    }
   },
   {
     id: 2,
@@ -28,15 +18,5 @@ export const products: Array<Product> = [
     cost: 2199,
     discount: true,
     available: false,
-    colors:{
-      one: {
-        color: "white",
-        image: "/assets/id-2-white.jpg"
-      },
-      two: {
-        color: "black",
-        image: "/assets/id-2-black.jpg"
-      }
-    }
   }
 ];

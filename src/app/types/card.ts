@@ -6,10 +6,27 @@ export interface Product {
   cost: number
   discount: boolean
   available: boolean
-  colors: {
-    one: ProductColor,
-    two: ProductColor
-  }
+}
+
+export interface ProductSB {
+  id: number
+  company: string
+  title: string
+  price: number
+  image: string
+  rating: number
+  category: string
+}
+export interface ProductInfo {
+  items: Array<ProductSB>
+  meta: Info
+}
+export interface Info {
+  totalItems: number
+  itemCount: number
+  itemsPerPage: number
+  totalPages: number
+  currentPage: number
 }
 export interface ProductColor {
   color?: string
