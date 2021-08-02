@@ -6,10 +6,10 @@ type triggerType = 'click'|'hover';
   selector: 'app-drop-down-menu',
   template: `
     <div>
-      <app-button [text]="text" [isActive]="false" [size]="'large'" (click)="onClick()" (mouseenter)="openMenu()" (mouseleave)="closeMenu()"></app-button>
+      <app-button [text]="btnText" [isActive]="false" [size]="'large'" (click)="onClick()" (mouseenter)="openMenu()" (mouseleave)="closeMenu()"></app-button>
     </div>
     <div *ngIf="isOpen">
-        <app-menu></app-menu>
+        <app-menu [menuList]="menuList"></app-menu>        
     </div>
   `,
   styles: [
@@ -18,15 +18,13 @@ type triggerType = 'click'|'hover';
 export class DropDownMenuComponent implements OnInit {
 
   @Input() trigger: triggerType = "hover";
+  @Input() btnText: string = 'DropDownMenuBtn ("+this.trigger+")';
+  @Input() menuList = ["option 1","option 2","option 3"];
   isOpen: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  get text(): string{
-    return "DropDownMenuBtn ("+this.trigger+")";
   }
 
   onClick(): void{

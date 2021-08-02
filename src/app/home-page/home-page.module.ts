@@ -5,6 +5,8 @@ import {RouterModule} from "@angular/router";
 import {ButtonModule} from "../button/button.module";
 import {ProductsService} from "../services/products.service";
 import {ButtonSortModule} from "../button-sort/button-sort.module";
+import {DropDownMenuModule} from "../drop-down-menu/drop-down-menu.module";
+import {DropDownListModule} from "../drop-down-list/drop-down-list.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import {ButtonSortModule} from "../button-sort/button-sort.module";
     CommonModule,
     RouterModule,
     ButtonModule,
-    ButtonSortModule
+    ButtonSortModule,
+    DropDownMenuModule,
+    DropDownListModule
   ],
   exports: [
     HomePageComponent

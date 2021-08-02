@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductSB, Toggle} from "../types/card";
 import {ProductsService} from "../services/products.service";
 
 @Component({
@@ -7,9 +6,9 @@ import {ProductsService} from "../services/products.service";
   template: `
       <div><h1>Список товаров</h1></div>
       <button>сортировать:</button>
-      <app-button-sort [ngStyle]="{backgroundColor:'title'===this.productsService.active?'lightsalmon':'white'}" (click)="this.productsService.orderBy('title')" [text]="'по наименованию'"></app-button-sort>
-      <app-button-sort [ngStyle]="{backgroundColor:'company'===this.productsService.active?'lightsalmon':'white'}" (click)="this.productsService.orderBy('company')" [text]="'по производителю'"></app-button-sort>
-      <app-button-sort [ngStyle]="{backgroundColor:'price'===this.productsService.active?'lightsalmon':'white'}" (click)="this.productsService.orderBy('price')" [text]="'по цене'"></app-button-sort>
+      <select #typeOrder (change)="this.productsService.changeSortType(typeOrder.value)">
+          <option *ngFor="let item of menuList">{{item}}</option>
+      </select>   
       <table>
           <tr>
               <th>id</th>
@@ -36,7 +35,7 @@ import {ProductsService} from "../services/products.service";
   ]
 })
 export class HomePageComponent implements OnInit {
-
+  menuList = ['по наименованию','по производителю','по цене'  ];
 
   constructor(public productsService:ProductsService) { }
 

@@ -8,6 +8,7 @@ import {HttpParams} from "@angular/common/http";
 @Injectable()
 export class ProductsService {
   url =`${environment.api}/products`;
+  sortType: string = '';
   public products: Array<ProductSB> = [];
   queryParams = {};
   active: string = '';
@@ -23,6 +24,7 @@ export class ProductsService {
   }
 
   orderBy(item:string){
+    console.log(item);
     this.applyQuery({orderBy:item});
     this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage = result.items);
     console.log(this.products);
@@ -49,6 +51,11 @@ export class ProductsService {
       this.disabled = true;
     }
     console.log(this.products);
+  }
+
+  changeSortType(item: string){
+    let type = item === 'по наименованию'?'title':(item === 'по производителю'?'company':'price');
+    this.orderBy(type);
   }
 
 }
