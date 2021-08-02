@@ -4,19 +4,21 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {ProductInfo, ProductSB} from "../types/card";
 import {HttpParams} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable()
 export class ProductsService {
   url =`${environment.api}/products`;
-  sortType: string = '';
   public products: Array<ProductSB> = [];
   queryParams = {};
   active: string = '';
   page: number = 1;
+  typeOrder: string = 'none';
   disabled: boolean = false;
   productsOnThisPage: Array<ProductSB>  = [];
 
-  constructor(private http:HttpService) { }
+  constructor(private http:HttpService, private router: Router, public route: ActivatedRoute) {
+  }
 
   getProducts$(queryParams: {[key: string]:string}):Observable<ProductInfo>{
     const params = new HttpParams({fromObject:queryParams});
@@ -24,16 +26,11 @@ export class ProductsService {
   }
 
   orderBy(item:string){
-    console.log(item);
     this.applyQuery({orderBy:item});
     this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage = result.items);
-    console.log(this.products);
   }
 
   public applyQuery(params:{[key:string]:string}):void{
-    if (params['orderBy']){
-      this.active = params['orderBy'];
-    }
     this.queryParams = {
       ... this.queryParams,
       ... params};
@@ -50,12 +47,27 @@ export class ProductsService {
     if (this.page === 6){
       this.disabled = true;
     }
+    this.router.navigate(['.'],{relativeTo: this.route, queryParams: this.queryParams});
     console.log(this.products);
   }
 
   changeSortType(item: string){
     let type = item === 'по наименованию'?'title':(item === 'по производителю'?'company':'price');
+    this.typeOrder = type;
     this.orderBy(type);
+    this.router.navigate(['.'],{relativeTo: this.route, queryParams: this.queryParams});
+  }
+
+  getParameters(){
+    let order = this.route.snapshot.queryParams['orderBy'];
+    let page = this.route.snapshot.queryParams['page'];
+    if (order){
+      this.applyQuery({orderBy:order});
+    }
+    if (page){
+      this.applyQuery({page:page});
+    }
+
   }
 
 }

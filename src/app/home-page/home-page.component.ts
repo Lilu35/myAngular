@@ -40,6 +40,7 @@ export class HomePageComponent implements OnInit {
   constructor(public productsService:ProductsService) { }
 
   ngOnInit(): void {
+    this.productsService.getParameters();
     this.productsService.getProducts$(this.productsService.queryParams).subscribe(result => this.productsService.productsOnThisPage = result.items);
     this.productsService.products = this.productsService.productsOnThisPage;
   }
