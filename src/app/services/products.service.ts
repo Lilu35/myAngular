@@ -16,6 +16,8 @@ export class ProductsService {
   typeOrder: string = 'none';
   disabled: boolean = false;
   productsOnThisPage: Array<ProductSB>  = [];
+  menuList = ['по наименованию','по производителю','по цене'  ];
+  selected: string = this.menuList[0];
 
   constructor(private http:HttpService, private router: Router, public route: ActivatedRoute) {
   }
@@ -52,6 +54,8 @@ export class ProductsService {
   }
 
   changeSortType(item: string){
+    let i = this.menuList.indexOf(item);
+    this.selected = this.menuList[i];
     let type = item === 'по наименованию'?'title':(item === 'по производителю'?'company':'price');
     this.typeOrder = type;
     this.orderBy(type);
@@ -63,6 +67,7 @@ export class ProductsService {
     let page = this.route.snapshot.queryParams['page'];
     if (order){
       this.applyQuery({orderBy:order});
+      this.selected = order === 'title'?'по наименованию':(order === 'company'?'по производителю':'по цене');
     }
     if (page){
       this.applyQuery({page:page});

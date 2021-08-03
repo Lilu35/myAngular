@@ -7,8 +7,8 @@ import {ProductsService} from "../services/products.service";
       <div><h1>Список товаров</h1></div>
       <button>сортировать:</button>
       <select #typeOrder (change)="this.productsService.changeSortType(typeOrder.value)">
-          <option *ngFor="let item of menuList">{{item}}</option>
-      </select>   
+          <option [selected]="this.productsService.selected == item" *ngFor="let item of this.productsService.menuList">{{item}}</option>
+      </select>
       <table>
           <tr>
               <th>id</th>
@@ -35,7 +35,6 @@ import {ProductsService} from "../services/products.service";
   ]
 })
 export class HomePageComponent implements OnInit {
-  menuList = ['по наименованию','по производителю','по цене'  ];
 
   constructor(public productsService:ProductsService) { }
 
