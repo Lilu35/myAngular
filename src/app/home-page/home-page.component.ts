@@ -2,23 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {ProductsService} from "../services/products.service";
 import {from, fromEvent, Observable} from "rxjs";
 import {ProductSB} from "../types/card";
-import {debounceTime, distinctUntilChanged, filter, pluck, switchMap, tap, toArray} from "rxjs/operators";
+import {debounceTime, delay, distinctUntilChanged, filter, pluck, switchMap, tap, toArray} from "rxjs/operators";
 
 @Component({
   selector: 'app-home-page',
   template: `
       <div><h1>Список товаров</h1></div>
       <input type="text" placeholder="Поиск..." id="search" />
-      <div *ngIf="searchResult$|async as searchResult">
-          <ng-container *ngIf="searchResult.length > 0;else notFound">
-              <div *ngFor="let result of searchResult">
-                  {{result.title}}
-              </div>
-          </ng-container>        
-          <ng-template #notFound>
-              <div>Не найдено</div>
-          </ng-template>
-      </div>
       <button>сортировать:</button>
       <select #typeOrder (change)="this.productsService.changeSortType(typeOrder.value)">
           <option [selected]="this.productsService.selected == item"
@@ -33,14 +23,31 @@ import {debounceTime, distinctUntilChanged, filter, pluck, switchMap, tap, toArr
               <th>Рейтинг</th>
               <th>Фото</th>
           </tr>
-          <tr *ngFor="let p of this.productsService.productsOnThisPage$">
-              <td>{{p.id}}</td>
-              <td>{{p.title}}</td>
-              <td>{{p.company}}</td>
-              <td>{{p.price|currency:'RUB':'symbol-narrow'}}</td>
-              <td>{{p.rating}}</td>
-              <td><img class="catalog-image" src="{{p.image}}"></td>
-          </tr>
+          <ng-container *ngIf="searchResult$|async as searchResult;else allProducts">
+              <ng-container *ngIf="searchResult.length > 0;else notFound">
+                    <tr *ngFor="let p of searchResult">
+                        <td>{{p.id}}</td>
+                        <td>{{p.title}}</td>
+                        <td>{{p.company}}</td>
+                        <td>{{p.price|currency:'RUB':'symbol-narrow'}}</td>
+                        <td>{{p.rating}}</td>
+                        <td><img class="catalog-image" src="{{p.image}}"></td>
+                    </tr>
+              </ng-container>                       
+          </ng-container>
+          <ng-template #notFound>
+              <div>Не найдено</div>
+          </ng-template>
+          <ng-template #allProducts>
+              <tr *ngFor="let p of this.productsService.productsOnThisPage$">
+                  <td>{{p.id}}</td>
+                  <td>{{p.title}}</td>
+                  <td>{{p.company}}</td>
+                  <td>{{p.price|currency:'RUB':'symbol-narrow'}}</td>
+                  <td>{{p.rating}}</td>
+                  <td><img class="catalog-image" src="{{p.image}}"></td>
+              </tr>
+          </ng-template>
       </table>
       <app-button [text]="'Загрузить еще'" (click)="this.productsService.addPages()"
                   [isDisabled]="this.productsService.disabled"></app-button>
@@ -66,12 +73,12 @@ export class HomePageComponent implements OnInit {
       debounceTime(300),
       // @ts-ignore
       distinctUntilChanged(),
-      switchMap((searchTerm:string) => this.searchProduct(searchTerm.toLocaleLowerCase())),
+      switchMap((searchTerm:string) => this.searchProduct$(searchTerm.toLocaleLowerCase())),
       tap((v) => console.log(v))
     )
   }
 
-  public searchProduct(searchTerm: string):Observable<Array<ProductSB>>{
+  public searchProduct$(searchTerm: string):Observable<Array<ProductSB>>{
     return from(this.productsService.productsOnThisPage$).pipe(
       filter((product) => product.title.toLocaleLowerCase().indexOf(searchTerm) !== -1),
       toArray()
