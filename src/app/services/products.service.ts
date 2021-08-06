@@ -8,18 +8,17 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable()
 export class ProductsService {
-  url =`${environment.api}/products`;
-  public products: Array<ProductSB> = [];
-  queryParams = {};
-  active: string = '';
-  page: number = 1;
-  typeOrder: string = 'none';
-  disabled: boolean = false;
-  productsOnThisPage: Array<ProductSB>  = [];
-  menuList = ['по наименованию','по производителю','по цене'  ];
-  selected: string = this.menuList[0];
+  private url =`${environment.api}/products`;
+  private _products: Array<ProductSB> = [];
+  private _queryParams = {};
+  private page: number = 1;
+  private typeOrder: string = 'none';
+  private _disabled: boolean = false;
+  private _productsOnThisPage$: Array<ProductSB>  = [];
+  private _menuList = ['по наименованию','по производителю','по цене'  ];
+  private _selected: string = this._menuList[0];
 
-  constructor(private http:HttpService, private router: Router, public route: ActivatedRoute) {
+  constructor(private http:HttpService, private _router: Router, public _route: ActivatedRoute) {
   }
 
   getProducts$(queryParams: {[key: string]:string}):Observable<ProductInfo>{
@@ -29,7 +28,7 @@ export class ProductsService {
 
   orderBy(item:string){
     this.applyQuery({orderBy:item});
-    this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage = result.items);
+    this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage$ = result.items);
   }
 
   public applyQuery(params:{[key:string]:string}):void{
@@ -43,28 +42,28 @@ export class ProductsService {
     if (this.page < 6){
       this.page++;
       this.applyQuery({page: this.page.toString()});
-      this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage = result.items);
-      this.products = this.products.concat(this.productsOnThisPage);
+      this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage$ = result.items);
+      this.products = this.products.concat(this.productsOnThisPage$);
     }
     if (this.page === 6){
       this.disabled = true;
     }
-    this.router.navigate(['.'],{relativeTo: this.route, queryParams: this.queryParams});
+    this._router.navigate(['.'],{relativeTo: this._route, queryParams: this.queryParams});
     console.log(this.products);
   }
 
   changeSortType(item: string){
-    let i = this.menuList.indexOf(item);
-    this.selected = this.menuList[i];
+    let i = this._menuList.indexOf(item);
+    this.selected = this._menuList[i];
     let type = item === 'по наименованию'?'title':(item === 'по производителю'?'company':'price');
     this.typeOrder = type;
     this.orderBy(type);
-    this.router.navigate(['.'],{relativeTo: this.route, queryParams: this.queryParams});
+    this._router.navigate(['.'],{relativeTo: this._route, queryParams: this.queryParams});
   }
 
   getParameters(){
-    let order = this.route.snapshot.queryParams['orderBy'];
-    let page = this.route.snapshot.queryParams['page'];
+    let order = this._route.snapshot.queryParams['orderBy'];
+    let page = this._route.snapshot.queryParams['page'];
     if (order){
       this.applyQuery({orderBy:order});
       this.selected = order === 'title'?'по наименованию':(order === 'company'?'по производителю':'по цене');
@@ -72,7 +71,43 @@ export class ProductsService {
     if (page){
       this.applyQuery({page:page});
     }
+  }
 
+  get menuList(): string[] {
+    return this._menuList;
+  }
+  set menuList(value: string[]) {
+    this._menuList = value;
+  }
+  get selected(): string {
+    return this._selected;
+  }
+  set selected(value: string) {
+    this._selected = value;
+  }
+  get productsOnThisPage$(): Array<ProductSB> {
+    return this._productsOnThisPage$;
+  }
+  set productsOnThisPage$(value: Array<ProductSB>) {
+    this._productsOnThisPage$ = value;
+  }
+  get queryParams(): {} {
+    return this._queryParams;
+  }
+  set queryParams(value: {}) {
+    this._queryParams = value;
+  }
+  get products(): Array<ProductSB> {
+    return this._products;
+  }
+  set products(value: Array<ProductSB>) {
+    this._products = value;
+  }
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = value;
   }
 
 }
