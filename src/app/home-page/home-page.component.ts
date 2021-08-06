@@ -23,7 +23,7 @@ import {debounceTime, delay, distinctUntilChanged, filter, pluck, switchMap, tap
               <th>Рейтинг</th>
               <th>Фото</th>
           </tr>
-          <ng-container *ngIf="searchResult$|async as searchResult;else allProducts">
+          <ng-container *ngIf="this.productsService.searchResult$|async as searchResult;else allProducts">
               <ng-container *ngIf="searchResult.length > 0;else notFound">
                     <tr *ngFor="let p of searchResult">
                         <td>{{p.id}}</td>
@@ -58,7 +58,7 @@ import {debounceTime, delay, distinctUntilChanged, filter, pluck, switchMap, tap
   ]
 })
 export class HomePageComponent implements OnInit {
-  public searchResult$: Observable<Array<ProductSB>> | undefined;
+  public result$: Observable<Array<ProductSB>> | undefined;
 
   constructor(public productsService:ProductsService) { }
 
@@ -68,21 +68,18 @@ export class HomePageComponent implements OnInit {
     this.productsService.products = this.productsService.productsOnThisPage$;
     const search = document.querySelector('#search');
     // @ts-ignore
-    this.searchResult$ = fromEvent(search,'input').pipe(
+    this.productsService.searchResult$ = fromEvent(search,'input').pipe(
       pluck('target','value'),
+      // @ts-ignore
       debounceTime(300),
       // @ts-ignore
-      distinctUntilChanged(),
-      switchMap((searchTerm:string) => this.searchProduct$(searchTerm.toLocaleLowerCase())),
+      // distinctUntilChanged(),
+      switchMap((searchTerm:string) => this.productsService.searchProduct$(searchTerm.toLocaleLowerCase())),
       tap((v) => console.log(v))
-    )
+    );
+
   }
 
-  public searchProduct$(searchTerm: string):Observable<Array<ProductSB>>{
-    return from(this.productsService.productsOnThisPage$).pipe(
-      filter((product) => product.title.toLocaleLowerCase().indexOf(searchTerm) !== -1),
-      toArray()
-    )
-  }
+
 
 }

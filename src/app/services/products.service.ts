@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "./http.service";
 import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
+import {from, fromEvent, Observable} from "rxjs";
 import {ProductInfo, ProductSB} from "../types/card";
 import {HttpParams} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import {debounceTime, filter, pluck, switchMap, tap, toArray} from "rxjs/operators";
 
 @Injectable()
 export class ProductsService {
@@ -17,6 +18,7 @@ export class ProductsService {
   private _productsOnThisPage$: Array<ProductSB>  = [];
   private _menuList = ['по наименованию','по производителю','по цене'  ];
   private _selected: string = this._menuList[0];
+  public searchResult$: Observable<Array<ProductSB>> | undefined;
 
   constructor(private http:HttpService, private _router: Router, public _route: ActivatedRoute) {
   }
@@ -29,6 +31,8 @@ export class ProductsService {
   orderBy(item:string){
     this.applyQuery({orderBy:item});
     this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage$ = result.items);
+    // @ts-ignore
+    document.querySelector('#search').dispatchEvent(new Event('input'));
   }
 
   public applyQuery(params:{[key:string]:string}):void{
@@ -44,6 +48,8 @@ export class ProductsService {
       this.applyQuery({page: this.page.toString()});
       this.getProducts$(this.queryParams).subscribe(result => this.productsOnThisPage$ = result.items);
       this.products = this.products.concat(this.productsOnThisPage$);
+      // @ts-ignore
+      document.querySelector('#search').dispatchEvent(new Event('input'));
     }
     if (this.page === 6){
       this.disabled = true;
@@ -71,6 +77,14 @@ export class ProductsService {
     if (page){
       this.applyQuery({page:page});
     }
+  }
+
+  public searchProduct$(searchTerm: string):Observable<Array<ProductSB>>{
+    console.log('ищем');
+    return from(this.productsOnThisPage$).pipe(
+      filter((product) => product.title.toLocaleLowerCase().indexOf(searchTerm) !== -1),
+      toArray()
+    )
   }
 
   get menuList(): string[] {
