@@ -58,7 +58,6 @@ import {debounceTime, delay, distinctUntilChanged, filter, pluck, switchMap, tap
   ]
 })
 export class HomePageComponent implements OnInit {
-  public result$: Observable<Array<ProductSB>> | undefined;
 
   constructor(public productsService:ProductsService) { }
 
@@ -74,8 +73,7 @@ export class HomePageComponent implements OnInit {
       debounceTime(300),
       // @ts-ignore
       // distinctUntilChanged(),
-      switchMap((searchTerm:string) => this.productsService.searchProduct$(searchTerm.toLocaleLowerCase())),
-      tap((v) => console.log(v))
+      switchMap((searchTerm:string) => this.productsService.searchProduct$(searchTerm.toLocaleLowerCase()))
     );
 
   }

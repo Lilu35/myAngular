@@ -6,6 +6,7 @@ import {ProductInfo, ProductSB} from "../types/card";
 import {HttpParams} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, filter, pluck, switchMap, tap, toArray} from "rxjs/operators";
+import {CacheService} from "./cache.service";
 
 @Injectable()
 export class ProductsService {
@@ -20,7 +21,7 @@ export class ProductsService {
   private _selected: string = this._menuList[0];
   public searchResult$: Observable<Array<ProductSB>> | undefined;
 
-  constructor(private http:HttpService, private _router: Router, public _route: ActivatedRoute) {
+  constructor(private http:HttpService, private _router: Router, public _route: ActivatedRoute, private cache: CacheService) {
   }
 
   getProducts$(queryParams: {[key: string]:string}):Observable<ProductInfo>{
@@ -42,7 +43,6 @@ export class ProductsService {
   }
 
   addPages(){
-    console.log(this.page);
     if (this.page < 6){
       this.page++;
       this.applyQuery({page: this.page.toString()});
@@ -80,7 +80,6 @@ export class ProductsService {
   }
 
   public searchProduct$(searchTerm: string):Observable<Array<ProductSB>>{
-    console.log('ищем');
     return from(this.productsOnThisPage$).pipe(
       filter((product) => product.title.toLocaleLowerCase().indexOf(searchTerm) !== -1),
       toArray()

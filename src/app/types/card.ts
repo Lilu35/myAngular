@@ -1,3 +1,5 @@
+import {Observable} from "rxjs";
+
 export interface Product {
   id: number
   image?: string
@@ -36,5 +38,6 @@ export interface Toggle {
   value?: 'actionPrice' | 'available' | 'none'
   label: string
 }
+
 
 
