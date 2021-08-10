@@ -26,7 +26,7 @@ export class ProductsService {
 
   getProducts$(queryParams: {[key: string]:string}):Observable<ProductInfo>{
     const params = new HttpParams({fromObject:queryParams});
-    return this.http.get<ProductInfo>(this.url,{params});
+    return this.cache.getProducts$(this.url,{params});
   }
 
   orderBy(item:string){

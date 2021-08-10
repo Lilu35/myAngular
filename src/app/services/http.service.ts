@@ -9,20 +9,11 @@ import {ProductSB} from "../types/card";
 })
 export class HttpService {
 
-  constructor(private http:HttpClient,private cache:CacheService) {
+  constructor(private http:HttpClient) {
   }
 
   public get<T>(url:string,options?:{}):Observable<T>{
-    let key = this.cache.makeKey(url,options);
-    if (this.cache.productsCache && this.cache.getFromCash(key)){
-      console.log('ЕСТЬ в кэш');
-      console.log(this.cache.productsCache);
-      return this.cache.getFromCash(key);
-    } else {
-      console.log('НЕТ в кэш');
-      this.cache.addToCache(key,this.http.get<T>(url,options));
-      return this.http.get<T>(url,options);
-    }
+    return this.http.get<T>(url,options);
   }
 
   public post(url:string,data:any){
