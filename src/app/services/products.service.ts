@@ -19,6 +19,7 @@ export class ProductsService {
   private _productsOnThisPage$: Array<ProductSB>  = [];
   private _menuList = ['по наименованию','по производителю','по цене'  ];
   private _selected: string = this._menuList[0];
+  private _selectedSearch: string = this._menuList[0];
   public searchResult$: Observable<Array<ProductSB>> | undefined;
 
   constructor(private http:HttpService, private _router: Router, public _route: ActivatedRoute, private cache: CacheService) {
@@ -67,6 +68,11 @@ export class ProductsService {
     this._router.navigate(['.'],{relativeTo: this._route, queryParams: this.queryParams});
   }
 
+  changeSearchType(item: string){
+    let i = this._menuList.indexOf(item);
+    this.selectedSearch = this._menuList[i];
+  }
+
   getParameters(){
     let order = this._route.snapshot.queryParams['orderBy'];
     let page = this._route.snapshot.queryParams['page'];
@@ -80,7 +86,22 @@ export class ProductsService {
   }
 
   public searchProduct$(searchTerm: string):Observable<Array<ProductSB>>{
+    if (this.selectedSearch === 'по производителю'){
+      return from(this.productsOnThisPage$).pipe(
+        tap((v) => console.log('поиск по производителю')),
+        filter((product) => product.company.toLocaleLowerCase().indexOf(searchTerm) !== -1),
+        toArray()
+      )
+    }
+    if (this.selectedSearch === 'по цене'){
+      return from(this.productsOnThisPage$).pipe(
+        tap((v) => console.log('поиск по цене')),
+        filter((product) => product.price.toString().indexOf(searchTerm) !== -1),
+        toArray()
+      )
+    }
     return from(this.productsOnThisPage$).pipe(
+      tap((v) => console.log('поиск по наименованию')),
       filter((product) => product.title.toLocaleLowerCase().indexOf(searchTerm) !== -1),
       toArray()
     )
@@ -97,6 +118,12 @@ export class ProductsService {
   }
   set selected(value: string) {
     this._selected = value;
+  }
+  get selectedSearch(): string {
+    return this._selectedSearch;
+  }
+  set selectedSearch(value: string) {
+    this._selectedSearch = value;
   }
   get productsOnThisPage$(): Array<ProductSB> {
     return this._productsOnThisPage$;

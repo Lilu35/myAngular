@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductsService} from "../services/products.service";
-import {from, fromEvent, Observable} from "rxjs";
-import {ProductSB} from "../types/card";
-import {debounceTime, delay, distinctUntilChanged, filter, pluck, switchMap, tap, toArray} from "rxjs/operators";
+import {fromEvent} from "rxjs";
+import {debounceTime, pluck, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-home-page',
   template: `
       <div><h1>Список товаров</h1></div>
       <input type="text" placeholder="Поиск..." id="search" />
+      <select #typeSearch (change)="this.productsService.changeSearchType(typeSearch.value)">
+          <option [selected]="this.productsService.selectedSearch == type"
+                  *ngFor="let type of this.productsService.menuList">{{type}}</option>
+      </select>
       <button>сортировать:</button>
       <select #typeOrder (change)="this.productsService.changeSortType(typeOrder.value)">
           <option [selected]="this.productsService.selected == item"
