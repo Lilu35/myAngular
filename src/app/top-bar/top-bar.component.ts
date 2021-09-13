@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Главная</a>
           <a routerLink="/favorites" routerLinkActive="active">Избранное</a>
           <a routerLink="/catalog" routerLinkActive="active">Каталог</a>
+          <a routerLink="/registration" routerLinkActive="active">Регистрация</a>
       </div>
   `,
   styleUrls: ['./top-bar.component.scss']

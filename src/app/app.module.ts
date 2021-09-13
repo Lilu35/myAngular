@@ -13,7 +13,7 @@ import {IconTooltipModule} from "./icon-tooltip/icon-tooltip.module";
 import {FormsModule} from "@angular/forms";
 import {MenuModule} from "./menu/menu.module";
 import {DropDownMenuModule} from "./drop-down-menu/drop-down-menu.module";
-import { registerLocaleData } from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import localeRU from '@angular/common/locales/ru';
 import { AppRoutingModule } from './app-routing.module';
 import {RouterModule} from "@angular/router";
@@ -25,6 +25,9 @@ import {FavoritesModule} from "./favorites/favorites.module";
 import {TopBarComponent} from "./top-bar/top-bar.component";
 import {TopBarModule} from "./top-bar/top-bar.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {RegistrationPageModule} from "./registration-page/registration-page.module";
+import { PasswordMatchDirective } from './checkout/directives/password-match.directive';
+import {RegistrationPageComponent} from "./registration-page/registration-page.component";
 
 registerLocaleData(localeRU);
 
@@ -45,6 +48,7 @@ registerLocaleData(localeRU);
     IconTooltipModule,
     MenuModule,
     NotFoundModule,
+    RegistrationPageModule,
     ProductCardModule,
     RatingModule,
     ToggleModule,
@@ -55,7 +59,9 @@ registerLocaleData(localeRU);
     RouterModule,
     HttpClientModule
   ],
-  providers: [{provide:LOCALE_ID,useValue:'ru'}],
+  providers: [{provide: LOCALE_ID, useValue: 'ru'}],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
