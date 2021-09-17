@@ -5,6 +5,7 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {FavoritesComponent} from "./favorites/favorites.component";
 import {RegistrationPageComponent} from "./registration-page/registration-page.component";
+import {OrderPageComponent} from "./order-page/order-page.component";
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationPageComponent
+  },
+  {
+    path: 'order',
+    component: OrderPageComponent
   },
   {
     path: 'not-found',

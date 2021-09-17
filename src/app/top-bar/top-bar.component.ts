@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
           <a routerLink="/favorites" routerLinkActive="active">Избранное</a>
           <a routerLink="/catalog" routerLinkActive="active">Каталог</a>
           <a routerLink="/registration" routerLinkActive="active">Регистрация</a>
+          <a routerLink="/order" routerLinkActive="active">Заказ</a>  
       </div>
   `,
   styleUrls: ['./top-bar.component.scss']
