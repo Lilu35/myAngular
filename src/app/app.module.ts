@@ -30,6 +30,8 @@ import { PasswordMatchDirective } from './checkout/directives/password-match.dir
 import {RegistrationPageComponent} from "./registration-page/registration-page.component";
 import {OrderPageComponent} from "./order-page/order-page.component";
 import {OrderPageModule} from "./order-page/order-page.module";
+import {ProductCardNewModule} from "./product-card-new/product-card-new.module";
+import {ProductInfoModule} from "./product-info/product-info.module";
 
 registerLocaleData(localeRU);
 
@@ -61,7 +63,9 @@ registerLocaleData(localeRU);
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    OrderPageModule
+    OrderPageModule,
+    ProductCardNewModule,
+    ProductInfoModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'ru'}],
   exports: [

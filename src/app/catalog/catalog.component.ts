@@ -12,12 +12,21 @@ import {CartService} from "../services/cart.service";
       <router-outlet></router-outlet>
       <app-cart></app-cart> 
       <app-toggle [toggles]="toggles" (toggleChanged)="filter($event)"></app-toggle>
-        <app-product-card
-            *ngFor="let p of filteredProducts"
-            [product] = "p" > 
-        </app-product-card>              
-          `,
-  styles: ['li {list-style-type: none;display: inline-block;margin-right: 50px;}']
+<!--        <app-product-card-->
+<!--            *ngFor="let p of filteredProducts"-->
+<!--            [product] = "p" > -->
+<!--        </app-product-card>              -->
+      <app-product-card-new *ngFor="let p of filteredProducts">
+          <app-product-info>
+              <h2>{{p.name}}</h2>
+              <h3>{{p.model}}</h3>
+              <img class="catalog-image" src="{{p.image}}">
+              <h3>{{p.cost|currency:'RUB':'symbol-narrow'}}</h3>
+          </app-product-info>
+          <app-button [text]="'В корзину'" (click)="this.cartService.addProduct(this.p)" [color]="'primary'" [size]="'large'"></app-button>                    
+      </app-product-card-new>
+`,
+  styles: ['li {list-style-type: none;display: inline-block;margin-right: 50px;}','.catalog-image{height: 120px;}']
 })
 export class CatalogComponent implements OnInit {
   products: Array<Product> = [];

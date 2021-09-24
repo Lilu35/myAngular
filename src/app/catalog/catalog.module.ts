@@ -6,6 +6,9 @@ import {CartModule} from "../cart/cart.module";
 import {ToggleModule} from "../toggle/toggle.module";
 import {CatalogRoutingModule} from "./catalog-routing.module";
 import {CatalogSharedModule} from "./catalog-shared.module";
+import {ProductCardNewModule} from "../product-card-new/product-card-new.module";
+import {ButtonModule} from "../button/button.module";
+import {ProductInfoModule} from "../product-info/product-info.module";
 
 
 
@@ -19,7 +22,10 @@ import {CatalogSharedModule} from "./catalog-shared.module";
     CartModule,
     ToggleModule,
     CatalogRoutingModule,
-    CatalogSharedModule
+    CatalogSharedModule,
+    ButtonModule,
+    ProductCardNewModule,
+    ProductInfoModule
   ],
   exports: [
     CatalogComponent
