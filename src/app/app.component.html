@@ -1,4 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <app-top-bar></app-top-bar>
 <router-outlet></router-outlet>
+<div *ngForOf="let prop from {name: 'Anna',surname: 'Lbova',nickname: 'Lilu'} ; value as v">
+  <h3>{{prop}}: {{v}}</h3>
+</div>
 

@@ -32,12 +32,14 @@ import {OrderPageComponent} from "./order-page/order-page.component";
 import {OrderPageModule} from "./order-page/order-page.module";
 import {ProductCardNewModule} from "./product-card-new/product-card-new.module";
 import {ProductInfoModule} from "./product-info/product-info.module";
+import { NgForOfDirective } from './ng-for-of.directive';
 
 registerLocaleData(localeRU);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NgForOfDirective
   ],
   imports: [
     BrowserModule,
