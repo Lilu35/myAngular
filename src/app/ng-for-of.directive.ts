@@ -1,9 +1,6 @@
 import {
   Directive,
-  Input,
-  IterableChanges,
-  IterableDiffer,
-  IterableDiffers,
+  Input, KeyValueChangeRecord, KeyValueDiffer, KeyValueDiffers,
   TemplateRef,
   ViewContainerRef
 } from '@angular/core';
@@ -13,30 +10,38 @@ import {
 })
 export class NgForOfDirective {
   private object: {} = {};
-  public differ!: IterableDiffer<{}>;
+  public differ!: KeyValueDiffer<any,any>;
   @Input() set ngForOfFrom(obj:{}){
-    // this.object = this.createObject(obj);
-    this.viewContainer.clear();
-    for (const prop in obj) {
-      // @ts-ignore
-      let value = obj[prop];
-      this.viewContainer.createEmbeddedView(this.templateRef,{$implicit:prop,value});
-    }
+    this.object = this.createObject(obj);
   }
 
   public createObject(obj:{}):Object{
     return obj;
   }
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef,private iterable:IterableDiffers) {
-    // this.differ = this.iterable.find(this.object).create();
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef,private iterable:KeyValueDiffers) {
+    this.differ = this.iterable.find(this.object).create();
   }
 
-  // ngOnCheck(){
-  //   const objChanges = this.differ.diff(this.object);
-  //   for (var prop in obj) {
-  //     this.viewContainer.createEmbeddedView(this.templateRef,{$implicit:prop,prop});
-  //   }
-  // }
+  ngDoCheck(){
+    const objChanges = this.differ.diff(this.object);
+    if (objChanges){
+      objChanges.forEachChangedItem(
+      (record: KeyValueChangeRecord<any, any>) => {
+        const value = record.currentValue;
+        this.viewContainer.createEmbeddedView(this.templateRef, {$implicit: record.key, value})
+      });
+
+      objChanges.forEachAddedItem((record: KeyValueChangeRecord<any, any>) => {
+        const value = record.currentValue;
+        this.viewContainer.createEmbeddedView(this.templateRef, {$implicit: record.key, value})
+      });
+
+      // objChanges.forEachRemovedItem(
+      //   (record: KeyValueChangeRecord<any, any>) => {
+      //     console.log(record.key + ': ' + record.previousValue + '=>' + record.currentValue)
+      //   });
+    }
+  }
 
 }
