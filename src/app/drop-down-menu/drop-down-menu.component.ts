@@ -9,7 +9,11 @@ type triggerType = 'click'|'hover';
       <app-button [text]="btnText" [isActive]="false" [size]="'large'" (click)="onClick()" (mouseenter)="openMenu()" (mouseleave)="closeMenu()"></app-button>
     </div>
     <div *ngIf="isOpen">
-        <app-menu [menuList]="menuList"></app-menu>        
+        <app-menu>
+            <p *ngFor="let option of menuList">
+                {{option}}
+            </p>
+        </app-menu>        
     </div>
   `,
   styles: [

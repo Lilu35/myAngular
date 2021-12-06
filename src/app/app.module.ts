@@ -32,14 +32,19 @@ import {OrderPageComponent} from "./order-page/order-page.component";
 import {OrderPageModule} from "./order-page/order-page.module";
 import {ProductCardNewModule} from "./product-card-new/product-card-new.module";
 import {ProductInfoModule} from "./product-info/product-info.module";
-import { NgForOfDirective } from './ng-for-of.directive';
+import { NgForOfDirective } from './directives/ng-for-of.directive';
+import { ClickpastDirective } from './directives/clickpast.directive';
+import {SelectModule} from "./select/select.module";
+import { MenuDirective } from './directives/menu.directive';
 
 registerLocaleData(localeRU);
 
 @NgModule({
   declarations: [
     AppComponent,
-    NgForOfDirective
+    NgForOfDirective,
+    ClickpastDirective,
+    MenuDirective
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,8 @@ registerLocaleData(localeRU);
     HttpClientModule,
     OrderPageModule,
     ProductCardNewModule,
-    ProductInfoModule
+    ProductInfoModule,
+    SelectModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'ru'}],
   exports: [

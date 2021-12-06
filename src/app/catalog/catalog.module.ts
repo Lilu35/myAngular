@@ -9,6 +9,7 @@ import {CatalogSharedModule} from "./catalog-shared.module";
 import {ProductCardNewModule} from "../product-card-new/product-card-new.module";
 import {ButtonModule} from "../button/button.module";
 import {ProductInfoModule} from "../product-info/product-info.module";
+import {FavoritesModule} from "../favorites/favorites.module";
 
 
 
@@ -25,7 +26,8 @@ import {ProductInfoModule} from "../product-info/product-info.module";
     CatalogSharedModule,
     ButtonModule,
     ProductCardNewModule,
-    ProductInfoModule
+    ProductInfoModule,
+    FavoritesModule
   ],
   exports: [
     CatalogComponent

@@ -1,3 +1,5 @@
+//Структурная директива итерирует объект, на каждом шаге доступны ключ и значение.
+
 import {
   Directive,
   Input, KeyValueChangeRecord, KeyValueDiffer, KeyValueDiffers,
