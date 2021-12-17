@@ -37,6 +37,7 @@ import { ClickpastDirective } from './directives/clickpast.directive';
 import {SelectModule} from "./select/select.module";
 import { MenuDirective } from './directives/menu.directive';
 import { ArrayFilterPipe } from './tests/pipes/array-filter.pipe';
+import {MultiplierModule} from "./tests/components/multiplier/multiplier.module";
 
 registerLocaleData(localeRU);
 
@@ -75,7 +76,8 @@ registerLocaleData(localeRU);
     OrderPageModule,
     ProductCardNewModule,
     ProductInfoModule,
-    SelectModule
+    SelectModule,
+    MultiplierModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'ru'}],
   exports: [
