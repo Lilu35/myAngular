@@ -36,6 +36,7 @@ import { NgForOfDirective } from './directives/ng-for-of.directive';
 import { ClickpastDirective } from './directives/clickpast.directive';
 import {SelectModule} from "./select/select.module";
 import { MenuDirective } from './directives/menu.directive';
+import { ArrayFilterPipe } from './tests/pipes/array-filter.pipe';
 
 registerLocaleData(localeRU);
 
@@ -44,7 +45,8 @@ registerLocaleData(localeRU);
     AppComponent,
     NgForOfDirective,
     ClickpastDirective,
-    MenuDirective
+    MenuDirective,
+    ArrayFilterPipe
   ],
   imports: [
     BrowserModule,
