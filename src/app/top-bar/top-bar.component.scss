@@ -24,3 +24,22 @@
 .topnav a.active {
   text-decoration: underline;
 }
+
+:host { display: block; }
+
+.user-info {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+  width: 280px;
+  top: 48px;
+  padding: 12px 16px;
+  right: 0px;
+}
+
+.user-pic {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+

@@ -13,7 +13,7 @@ export class ClickpastDirective {
   @HostListener('document:click', ['$event'])
   documentClickEvent(event: Event) {
     if (!this.host.contains(event.target)) {
-      this.host.onClose();
+      // this.host.onClose();
     }
   }
 

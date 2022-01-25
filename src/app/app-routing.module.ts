@@ -29,6 +29,11 @@ export const routes: Routes = [
     component: OrderPageComponent
   },
   {
+    path: 'auth',
+    loadChildren: ()=>import('./auth/auth.module')
+      .then((m)=>m.AuthModule)
+  },
+  {
     path: 'not-found',
     component: NotFoundComponent
   },

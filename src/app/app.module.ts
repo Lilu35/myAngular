@@ -38,6 +38,10 @@ import {SelectModule} from "./select/select.module";
 import { MenuDirective } from './directives/menu.directive';
 import { ArrayFilterPipe } from './tests/pipes/array-filter.pipe';
 import {MultiplierModule} from "./tests/components/multiplier/multiplier.module";
+import {StoreModule} from "@ngrx/store";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import * as fromUser from './store/reducers/user.reducers'
+import {environment} from "../environments/environment";
 
 registerLocaleData(localeRU);
 
@@ -77,7 +81,12 @@ registerLocaleData(localeRU);
     ProductCardNewModule,
     ProductInfoModule,
     SelectModule,
-    MultiplierModule
+    MultiplierModule,
+    StoreModule.forRoot({user: fromUser.reducer}),
+    StoreDevtoolsModule.instrument({
+      name:'NgRx Store',
+      logOnly: environment.production
+    })
   ],
   providers: [{provide: LOCALE_ID, useValue: 'ru'}],
   exports: [
