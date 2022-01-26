@@ -42,6 +42,7 @@ import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import * as fromUser from './store/reducers/user.reducers'
 import {environment} from "../environments/environment";
+import {EffectsModule} from "@ngrx/effects";
 
 registerLocaleData(localeRU);
 
@@ -86,7 +87,8 @@ registerLocaleData(localeRU);
     StoreDevtoolsModule.instrument({
       name:'NgRx Store',
       logOnly: environment.production
-    })
+    }),
+    EffectsModule.forRoot([])
   ],
   providers: [{provide: LOCALE_ID, useValue: 'ru'}],
   exports: [

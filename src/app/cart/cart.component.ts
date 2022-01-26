@@ -7,7 +7,7 @@ import {CartService} from "../services/cart.service";
   template: `
     <div>
         <div>
-            <app-button [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button>
+            <app-button class="cart" [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button>
             <app-bage [num]="this.cartService.getCount()"></app-bage>
         </div>
         <div *ngIf="(this.cartService.cartIsOpened && this.cartService.getCount() > 0) || (this.cartService.cartIsOpened && this.inCart > 0)"
@@ -29,7 +29,10 @@ import {CartService} from "../services/cart.service";
     </div>    
     
   `,
-  styles: ['li {list-style-type: none;}']
+  styles: [`
+     li {list-style-type: none;}
+    .cart {position: absolute; top: 10px; right: 35px;}
+  `]
 })
 export class CartComponent implements OnInit {
   @Input() inCart: number = 0;

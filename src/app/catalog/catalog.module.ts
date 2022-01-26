@@ -10,7 +10,10 @@ import {ProductCardNewModule} from "../product-card-new/product-card-new.module"
 import {ButtonModule} from "../button/button.module";
 import {ProductInfoModule} from "../product-info/product-info.module";
 import {FavoritesModule} from "../favorites/favorites.module";
-
+import {StoreModule} from "@ngrx/store";
+import * as fromState from './store/reducers'
+import {ProductsEffects} from "./store/effects/products.effects";
+import {EffectsModule} from "@ngrx/effects";
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import {FavoritesModule} from "../favorites/favorites.module";
     ButtonModule,
     ProductCardNewModule,
     ProductInfoModule,
-    FavoritesModule
+    FavoritesModule,
+    StoreModule.forFeature('catalog',fromState.reducer),
+    EffectsModule.forFeature([ProductsEffects])
   ],
   exports: [
     CatalogComponent

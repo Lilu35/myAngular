@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   selector: 'app-favorites',
   template: `
       <div>
-          <app-button [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-heart'"></app-button>
+          <app-button class="favorite" [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-heart'"></app-button>
           <app-bage [num]="this.totalQty$|async"></app-bage>                    
       </div>
       <div *ngIf="(this.favoriteService.favoriteIsOpened) || (this.favoriteService.favoriteIsOpened)"
@@ -26,7 +26,10 @@ import {Observable} from "rxjs";
           <app-button [text]="'Очистить избранное'" (click)="this.favoriteService.clearFavorite()" [color]="'lightsalmon'" [ngStyle]="{marginLeft:'10px'}"></app-button>
       </div>
   `,
-  styles: ['li {list-style-type: none;}']
+  styles: [`
+      li {list-style-type: none;}
+    .favorite {position: absolute; top: 10px; right: 75px;}
+  `]
 })
 export class FavoritesComponent implements OnInit {
   @Input() inFavorite: number = 0;

@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-multiplier',
   template: `    
-    <button (click)="multiply()" data-id="multiplyBtn">умножить на 2</button>
-    <button (click)="divide()" data-id="divideBtn">разделить на 2</button>     
-    <div id="value">{{count}}</div>
+<!--    <button (click)="multiply()" data-id="multiplyBtn">умножить на 2</button>-->
+<!--    <button (click)="divide()" data-id="divideBtn">разделить на 2</button>     -->
+<!--    <div id="value">{{count}}</div>-->
   `,
   styles: []
 })
