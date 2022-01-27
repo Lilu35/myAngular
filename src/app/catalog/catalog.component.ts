@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Optional, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Optional, Output, ViewChild} from '@angular/core';
 import {Product, ProductInfo, ProductSB, Toggle} from "../types/card";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
@@ -12,6 +12,7 @@ import {ProductSelectors} from "./store/selectors";
 import {CatalogPageActions} from "./store/actions";
 import {Observable} from "rxjs";
 import {User} from "../store/reducers/user.reducers";
+import {CartComponent} from "../cart/cart.component";
 
 @Component({
   selector: 'app-catalog',
@@ -52,13 +53,15 @@ import {User} from "../store/reducers/user.reducers";
   styles: [`
       .catalog-image{height: 120px;}
       .catalog {display: inline-block;}
-      .product {width: 300px; margin-bottom: 50px; margin-top: 50px;}
+      .product {width: 300px; margin-bottom: 50px; margin-top: 20px;}
       .catalog-block {margin-left: 50px;}
   `]
 })
 export class CatalogComponent implements OnInit {
-  @Output() public onAddToCart: EventEmitter<ProductSB> = new EventEmitter<ProductSB>();
+  @ViewChild(CartComponent)
+  private cartComponent: CartComponent | undefined;
   public products$: Observable<Array<ProductSB>|null> = this.store.pipe(select(ProductSelectors.selectProducts));
+
   // products: Array<ProductSB> = [];
   // filteredProducts: Array<ProductSB> = [];
   // products: Array<Product> = [];
@@ -73,10 +76,12 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(CatalogPageActions.enter());
-    }
+  }
 
   public addToCart(product: ProductSB):void{
-    this.onAddToCart.emit(product);
+    if (this.cartComponent){
+      this.cartComponent.addToCart(product);
+    }
   }
 
     // this.dataService.setData(products);

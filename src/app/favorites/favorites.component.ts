@@ -29,7 +29,7 @@ import {Observable} from "rxjs";
       li {list-style-type: none;}
       .favorite-window {position: absolute; background-color: #fff; box-shadow: 0 2px 4px rgb(0 0 0 / 15%); 
                         width: 280px; top: 48px; padding: 12px 16px; right: 0px;}
-      .favorite {position: absolute; top: 10px; right: 75px;}
+      .favorite {position: absolute; top: 20px; right: 85px;}
   `]
 })
 export class FavoritesComponent implements OnInit {
