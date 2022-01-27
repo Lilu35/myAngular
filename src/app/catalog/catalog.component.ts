@@ -13,6 +13,7 @@ import {CatalogPageActions} from "./store/actions";
 import {Observable} from "rxjs";
 import {User} from "../store/reducers/user.reducers";
 import {CartComponent} from "../cart/cart.component";
+import {FavoritesComponent} from "../favorites/favorites.component";
 
 @Component({
   selector: 'app-catalog',
@@ -44,7 +45,7 @@ import {CartComponent} from "../cart/cart.component";
                       <h3>{{p.price|currency:'RUB':'symbol-narrow'}}</h3>
                   </app-product-info>
                             <app-button [text]="'В корзину'" (click)="addToCart(this.p)" [color]="'primary'" [size]="'large'"></app-button>
-                  <!--          <app-button [text]="''" [withIcon]="true" (click)="this.favoriteService.addToFavorite(this.p)" [iconClass]="'fa fa-heart'" [color]="'primary'" [size]="'large'"></app-button>-->
+                            <app-button [text]="''" [withIcon]="true" (click)="addToFavorite(this.p)" [iconClass]="'fa fa-heart'" [color]="'primary'" [size]="'large'"></app-button>
               </div>
           </app-product-card-new>
       </div>     
@@ -60,6 +61,8 @@ import {CartComponent} from "../cart/cart.component";
 export class CatalogComponent implements OnInit {
   @ViewChild(CartComponent)
   private cartComponent: CartComponent | undefined;
+  @ViewChild(FavoritesComponent)
+  private favoritesComponent: FavoritesComponent | undefined;
   public products$: Observable<Array<ProductSB>|null> = this.store.pipe(select(ProductSelectors.selectProducts));
 
   // products: Array<ProductSB> = [];
@@ -81,6 +84,12 @@ export class CatalogComponent implements OnInit {
   public addToCart(product: ProductSB):void{
     if (this.cartComponent){
       this.cartComponent.addToCart(product);
+    }
+  }
+
+  public addToFavorite(product: ProductSB):void{
+    if (this.favoritesComponent){
+      this.favoritesComponent.addToFavorite(product);
     }
   }
 

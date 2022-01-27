@@ -12,7 +12,7 @@ import {CartSelectors} from "./store/selectors";
     <div>
         <div>
             <app-button class="cart" [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button>
-            <app-bage [num]="countInCart$|async"></app-bage>
+            <app-bage class="bage-cart" [num]="countInCart$|async"></app-bage>
         </div>
         <div class="cart-window" *ngIf="cartIsOpen$|async">
             <app-button [style.float]="'right'" [color]="'primary'" [text]="''" (click)="onClick()" [withIcon]="true" [iconClass]="'fa fa-times-circle'"></app-button>
@@ -37,10 +37,10 @@ import {CartSelectors} from "./store/selectors";
      .cart-window {position: absolute; background-color: #fff; box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
                    width: 280px; top: 48px; padding: 12px 16px; right: 0px;}
      .cart {position: absolute; top: 20px; right: 45px;}
+     .bage-cart {position: absolute; top: 10px; right: 35px; background: darkseagreen;border-radius: 10px; text-align: center; width: 20px;}
   `]
 })
 export class CartComponent implements OnInit {
-  @Input() inCart: number = 0;
   public productsInCart$: Observable<Array<{qty:number,product:ProductSB}>> = this.store.pipe(select(CartSelectors.selectProductsInCart));
   public countInCart$: Observable<number> = this.store.pipe(select(CartSelectors.selectCountProductsInCart));
   public cartIsOpen$: Observable<boolean> = this.store.pipe(select(CartSelectors.selectCartIsOpen));
@@ -51,15 +51,15 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
+  onClick():void{
     this.store.dispatch(clickToCart());
   }
 
-  public addToCart(product: ProductSB){
+  public addToCart(product: ProductSB):void{
     this.store.dispatch(addProduct({product}));
   }
 
-  public removeProduct(product: ProductSB){
+  public removeProduct(product: ProductSB):void{
     this.store.dispatch(deleteProduct({product}));
   }
 

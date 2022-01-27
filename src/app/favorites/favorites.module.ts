@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FavoritesComponent } from './favorites.component';
 import {ButtonModule} from "../button/button.module";
 import {BageModule} from "../bage/bage.module";
+import {StoreModule} from "@ngrx/store";
+import * as fromState from "./store/reducers";
 
 
 
@@ -13,7 +15,8 @@ import {BageModule} from "../bage/bage.module";
   imports: [
     CommonModule,
     ButtonModule,
-    BageModule
+    BageModule,
+    StoreModule.forFeature('favorite',fromState.reducer)
   ],
   exports: [
     FavoritesComponent
