@@ -8,3 +8,5 @@ export const selectCountProductsInCart = createSelector(selectProductsInCartStat
 export const selectProductsInCart = createSelector(selectProductsInCartState,(state)=>state.productsInCart);
 
 export const selectCartIsOpen = createSelector(selectProductsInCartState,(state)=>state.cartIsOpen);
+
+export const selectSumCart = createSelector(selectProductsInCartState,(state)=>state.sumCart);
