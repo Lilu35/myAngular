@@ -10,8 +10,7 @@ import {Observable} from "rxjs";
           <app-button class="favorite" [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-heart'"></app-button>
           <app-bage [num]="this.totalQty$|async"></app-bage>                    
       </div>
-      <div *ngIf="(this.favoriteService.favoriteIsOpened) || (this.favoriteService.favoriteIsOpened)"
-           [ngStyle]="{border:'3px solid gold',width:'350px',borderRadius:'20px',padding:'10px'}">
+      <div class="favorite-window" *ngIf="(this.favoriteService.favoriteIsOpened) || (this.favoriteService.favoriteIsOpened)">
           <app-button [style.float]="'right'" [color]="'primary'" [text]="''" (click)="this.favoriteService.favoriteIsOpened=!this.favoriteService.favoriteIsOpened" [withIcon]="true" [iconClass]="'fa fa-times-circle'"></app-button>
           <span>В избранном {{this.totalQty$|async}} шт товаров</span>
           <br/>
@@ -28,7 +27,9 @@ import {Observable} from "rxjs";
   `,
   styles: [`
       li {list-style-type: none;}
-    .favorite {position: absolute; top: 10px; right: 75px;}
+      .favorite-window {position: absolute; background-color: #fff; box-shadow: 0 2px 4px rgb(0 0 0 / 15%); 
+                        width: 280px; top: 48px; padding: 12px 16px; right: 0px;}
+      .favorite {position: absolute; top: 10px; right: 75px;}
   `]
 })
 export class FavoritesComponent implements OnInit {

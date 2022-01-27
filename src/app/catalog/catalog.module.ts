@@ -12,7 +12,7 @@ import {ProductInfoModule} from "../product-info/product-info.module";
 import {FavoritesModule} from "../favorites/favorites.module";
 import {StoreModule} from "@ngrx/store";
 import * as fromState from './store/reducers'
-import {ProductsEffects} from "./store/effects/products.effects";
+import {ProductsEffects} from "./store/effects";
 import {EffectsModule} from "@ngrx/effects";
 
 

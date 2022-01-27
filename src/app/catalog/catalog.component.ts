@@ -8,10 +8,10 @@ import {CartService} from "../services/cart.service";
 import {FavoriteService} from "../services/favorite.service";
 import * as fromCatalog from './store/reducers'
 import {select, Store} from "@ngrx/store";
-import {ProductsService} from "../services/products.service";
 import {ProductSelectors} from "./store/selectors";
 import {CatalogPageActions} from "./store/actions";
 import {Observable} from "rxjs";
+import {User} from "../store/reducers/user.reducers";
 
 @Component({
   selector: 'app-catalog',
@@ -42,7 +42,7 @@ import {Observable} from "rxjs";
                       <img class="catalog-image" src="{{p.image}}">
                       <h3>{{p.price|currency:'RUB':'symbol-narrow'}}</h3>
                   </app-product-info>
-                  <!--          <app-button [text]="'В корзину'" (click)="this.cartService.addProduct(this.p)" [color]="'primary'" [size]="'large'"></app-button>-->
+                            <app-button [text]="'В корзину'" (click)="addToCart(this.p)" [color]="'primary'" [size]="'large'"></app-button>
                   <!--          <app-button [text]="''" [withIcon]="true" (click)="this.favoriteService.addToFavorite(this.p)" [iconClass]="'fa fa-heart'" [color]="'primary'" [size]="'large'"></app-button>-->
               </div>
           </app-product-card-new>
@@ -57,6 +57,7 @@ import {Observable} from "rxjs";
   `]
 })
 export class CatalogComponent implements OnInit {
+  @Output() public onAddToCart: EventEmitter<ProductSB> = new EventEmitter<ProductSB>();
   public products$: Observable<Array<ProductSB>|null> = this.store.pipe(select(ProductSelectors.selectProducts));
   // products: Array<ProductSB> = [];
   // filteredProducts: Array<ProductSB> = [];
@@ -73,6 +74,10 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(CatalogPageActions.enter());
     }
+
+  public addToCart(product: ProductSB):void{
+    this.onAddToCart.emit(product);
+  }
 
     // this.dataService.setData(products);
     // this.products = this.dataService.getData();

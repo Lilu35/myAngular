@@ -1,6 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Product} from "../types/card";
+import {Product, ProductSB} from "../types/card";
 import {CartService} from "../services/cart.service";
+import {Store} from "@ngrx/store";
+import * as fromCart from './store/reducers'
+import {addProduct} from "./store/actions/cart.actions";
+import {User} from "../store/reducers/user.reducers";
+import {signInSuccess} from "../store/actions/user.actions";
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +15,7 @@ import {CartService} from "../services/cart.service";
             <app-button class="cart" [text]="''" (click)="onClick()" [color]="'gold'" [withIcon]="true" [iconClass]="'fa fa-shopping-cart'"></app-button>
             <app-bage [num]="this.cartService.getCount()"></app-bage>
         </div>
-        <div *ngIf="(this.cartService.cartIsOpened && this.cartService.getCount() > 0) || (this.cartService.cartIsOpened && this.inCart > 0)"
-             [ngStyle]="{border:'3px solid gold',width:'350px',borderRadius:'20px',padding:'10px'}">
+        <div class="cart-window" *ngIf="(this.cartService.cartIsOpened && this.cartService.getCount() > 0) || (this.cartService.cartIsOpened && this.inCart > 0)">
             <app-button [style.float]="'right'" [color]="'primary'" [text]="''" (click)="this.cartService.cartIsOpened=!this.cartService.cartIsOpened" [withIcon]="true" [iconClass]="'fa fa-times-circle'"></app-button>
             <span>В корзине {{this.cartService.getCount()}} тов. на сумму {{this.cartService.sum|currency:'RUB':'symbol-narrow'}}</span>
             <br/>
@@ -31,13 +35,15 @@ import {CartService} from "../services/cart.service";
   `,
   styles: [`
      li {list-style-type: none;}
-    .cart {position: absolute; top: 10px; right: 35px;}
+     .cart-window {position: absolute; background-color: #fff; box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+                   width: 280px; top: 48px; padding: 12px 16px; right: 0px;}
+     .cart {position: absolute; top: 10px; right: 35px;}
   `]
 })
 export class CartComponent implements OnInit {
   @Input() inCart: number = 0;
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService, private store: Store<fromCart.Cart>) { }
 
   ngOnInit(): void {
   }
@@ -48,8 +54,8 @@ export class CartComponent implements OnInit {
     }
   }
 
-  closeCart(){
-    this.cartService.cartIsOpened = false;
+  public addToCart(product: ProductSB){
+    this.store.dispatch(addProduct({product}));
   }
 
 }

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CartComponent } from './cart.component';
 import {ButtonModule} from "../button/button.module";
 import {BageModule} from "../bage/bage.module";
+import {StoreModule} from "@ngrx/store";
+import * as fromState from "../catalog/store/reducers";
 
 
 
@@ -16,7 +18,7 @@ import {BageModule} from "../bage/bage.module";
   imports: [
     CommonModule,
     ButtonModule,
-    BageModule
+    BageModule,
   ]
 })
 export class CartModule { }

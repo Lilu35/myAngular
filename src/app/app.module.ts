@@ -40,7 +40,7 @@ import { ArrayFilterPipe } from './tests/pipes/array-filter.pipe';
 import {MultiplierModule} from "./tests/components/multiplier/multiplier.module";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import * as fromUser from './store/reducers/user.reducers'
+import * as fromUser from './store/reducers/user.reducers';
 import {environment} from "../environments/environment";
 import {EffectsModule} from "@ngrx/effects";
 
