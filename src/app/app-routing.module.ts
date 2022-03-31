@@ -6,6 +6,7 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {FavoritesComponent} from "./favorites/favorites.component";
 import {RegistrationPageComponent} from "./registration-page/registration-page.component";
 import {OrderPageComponent} from "./order-page/order-page.component";
+import {Hw9Component} from "./hw9/hw9.component";
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
   {
     path: 'order',
     component: OrderPageComponent
+  },
+  {
+    path: 'tabs',
+    component: Hw9Component
   },
   {
     path: 'auth',

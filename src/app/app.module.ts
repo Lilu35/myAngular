@@ -43,6 +43,11 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import * as fromUser from './store/reducers/user.reducers';
 import {environment} from "../environments/environment";
 import {EffectsModule} from "@ngrx/effects";
+import { TabsComponent } from './tabs/tabs.component';
+import {TabsModule} from "./tabs/tabs.module";
+import {Hw9Module} from "./hw9/hw9.module";
+import {TabsBodyModule} from "./tabs-body/tabs-body.module";
+import {TabsHeaderModule} from "./tabs-header/tabs-header.module";
 
 registerLocaleData(localeRU);
 
@@ -83,6 +88,10 @@ registerLocaleData(localeRU);
     ProductInfoModule,
     SelectModule,
     MultiplierModule,
+    TabsModule,
+    Hw9Module,
+    TabsBodyModule,
+    TabsHeaderModule,
     StoreModule.forRoot({user: fromUser.reducer}),
     StoreDevtoolsModule.instrument({
       name:'NgRx Store',

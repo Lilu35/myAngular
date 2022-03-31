@@ -13,7 +13,8 @@ import {UserSelectors} from "../store/selectors";
           <a routerLink="/favorites" routerLinkActive="active">Избранное</a>
           <a routerLink="/catalog" routerLinkActive="active">Каталог</a>
           <a routerLink="/registration" routerLinkActive="active">Регистрация</a>
-          <a routerLink="/order" routerLinkActive="active">Заказ</a>  
+          <a routerLink="/order" routerLinkActive="active">Заказ</a>
+          <a routerLink="/tabs" routerLinkActive="active">Табы для 9-ой домашки</a>
       </div>
       <div class="user-pic">
           <i class="fa fa-user fa-2x" (click)="profileDropDownOpen=!profileDropDownOpen"></i>

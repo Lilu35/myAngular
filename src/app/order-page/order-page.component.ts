@@ -108,14 +108,16 @@ export class OrderPageComponent implements OnInit {
 
   constructor(private fb:FormBuilder, private ls:LocalstorageService) {
     let object = JSON.parse(<string>this.ls.get('orderForm'));
-    this.fNameControl?.setValue(object['fullName']);
-    this.phoneControl?.setValue(object['phone']);
-    this.deliveryTypeControl?.setValue(object['deliveryType']);
-    this.paymentTypeControl?.setValue(object['paymentType']);
-    this.cityControl?.setValue(object['city']);
-    this.streetControl?.setValue(object['street']);
-    this.houseControl?.setValue(object['house']);
-    this.flatControl?.setValue(object['flat']);
+    if (object != null){
+      this.fNameControl?.setValue(object['fullName']);
+      this.phoneControl?.setValue(object['phone']);
+      this.deliveryTypeControl?.setValue(object['deliveryType']);
+      this.paymentTypeControl?.setValue(object['paymentType']);
+      this.cityControl?.setValue(object['city']);
+      this.streetControl?.setValue(object['street']);
+      this.houseControl?.setValue(object['house']);
+      this.flatControl?.setValue(object['flat']);
+    }
   }
 
   ngOnInit(): void {
